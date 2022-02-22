@@ -19,7 +19,13 @@ composer install
 | DB_USERNAME   |
 | DB_PASSWORD   |
 
-Obs: caso não tenha as tabelas criadas, executar o seguinte comando:
+3 - Criar chave para aplicação com o seguinte comando:
+
+```shell script
+php artisan key:generate
+```
+
+Obs: caso não tenha as tabelas criadas no banco de dados, executar o seguinte comando:
 
 ```shell script
 php artisan migrate
@@ -34,12 +40,10 @@ php artisan serve
 4 - SQL de extração de relatório de relevância de produtos
 
 ```SQL
-
 SELECT `tag`.*, (
         SELECT count(*) FROM `product`
         INNER JOIN `product_tag` ON `product`.id = `product_tag`.product_id WHERE `tag`.id = `product_tag`.tag_id
     ) AS products_count
 FROM `tag`
 ORDER BY `products_count` DESC;
-
 ```
